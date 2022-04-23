@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace MineSweeper {
-    public class StartPanel : MonoBehaviour {
+    public class StartPanel : AbstractController {
         private Transform settingPanelTransform;
 
         private void Start() {
