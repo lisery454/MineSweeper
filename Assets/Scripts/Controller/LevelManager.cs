@@ -7,21 +7,20 @@ using UnityEngine;
 namespace MineSweeper {
     public class LevelManager : AbstractController {
         [SerializeField] private MineGrid mineGridPrefab;
-
-        [SerializeField] private float gridInterval;
-
         private List<List<MineGrid>> grids;
 
         private GridModel gridModel;
+        private float gridInterval;
 
         private void Start() {
             gridModel = this.GetModel<GridModel>();
+            gridInterval = gridModel.GridInterval;
             this.RegisterEvent<GameStartEvent>(InitGrids).UnRegisterWhenGameObjectDestroyed(gameObject);
             this.RegisterEvent<ShowMineOrNumEvent>(ShowAssignedGrid).UnRegisterWhenGameObjectDestroyed(gameObject);
+            this.RegisterEvent<MarkGridEvent>(MarkGrid).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             //for test -----------------------------------------
-            this.SendCommand(new GameStartCommand(
-                gridModel.MineNum, gridModel.RowNum, gridModel.LineNum));
+            this.SendCommand(new GameStartCommand(gridModel.MineNum, gridModel.RowNum, gridModel.LineNum));
             //for test -----------------------------------------
         }
 
@@ -51,6 +50,8 @@ namespace MineSweeper {
                 }
             }
 
+            gridRoot.position = -new Vector3(lineNum * gridInterval / 2, rowNum * gridInterval / 2, 0);
+
             this.SendCommand<InitGridStateCommand>();
         }
 
@@ -59,6 +60,12 @@ namespace MineSweeper {
                 if (gridModel.IsMine.Value[r, l]) grids[r][l].ShowMine();
                 else grids[r][l].ShowNum(gridModel.AroundMineNum.Value[r, l]);
             }
+
+            this.SendCommand<CheckWinCommand>();
+        }
+
+        private void MarkGrid(MarkGridEvent e) {
+            grids[e.Row][e.Line].ShowMark(e.IsMark);
         }
     }
 }

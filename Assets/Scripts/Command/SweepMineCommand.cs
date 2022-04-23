@@ -1,4 +1,5 @@
-﻿using QFramework;
+﻿using System.Collections.Generic;
+using QFramework;
 
 namespace MineSweeper {
     public class SweepMineCommand : AbstractCommand {
@@ -12,7 +13,7 @@ namespace MineSweeper {
         }
 
         protected override void OnExecute() {
-            this.SendEvent(new SweepMineEvent(Row, Line));
+            this.GetSystem<MineSystem>().SweepMine(Row, Line);
         }
     }
 }

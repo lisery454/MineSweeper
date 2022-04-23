@@ -1,10 +1,9 @@
 ﻿using QFramework;
-using UnityEngine;
 
 namespace MineSweeper {
-    public class GameEndCommand : AbstractCommand {
+    public class CheckWinCommand : AbstractCommand{
         protected override void OnExecute() {
-            Debug.Log("game over");
+            this.GetSystem<MineSystem>().CheckWin();
         }
     }
 }

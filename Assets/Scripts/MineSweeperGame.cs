@@ -5,6 +5,7 @@ namespace MineSweeper {
         protected override void Init() {
             RegisterModel(new GridModel());
             RegisterSystem(new MineSystem());
+            RegisterSystem(new TimeSystem());
         }
     }
 }

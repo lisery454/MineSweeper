@@ -6,10 +6,11 @@ using Random = UnityEngine.Random;
 namespace MineSweeper {
     public class MineSystem : AbstractSystem {
         private GridModel gridModel;
+        private TimeSystem timeSystem;
 
         protected override void OnInit() {
             gridModel = this.GetModel<GridModel>();
-            this.RegisterEvent<SweepMineEvent>(OnSweepMine);
+            timeSystem = this.GetSystem<TimeSystem>();
         }
 
         public void InitGridState() {
@@ -19,6 +20,7 @@ namespace MineSweeper {
             InitIsMine(rowNum, lineNum, mineNum);
             InitAroundMineNum(rowNum, lineNum);
             InitIsSweeped(rowNum, lineNum);
+            InitIsMarked(rowNum, lineNum);
         }
 
         private void InitIsMine(int rowNum, int lineNum, int mineNum) {
@@ -74,13 +76,18 @@ namespace MineSweeper {
             gridModel.IsShowed.Value = new bool[rowNum, lineNum];
         }
 
-        private void OnSweepMine(SweepMineEvent e) {
+        private void InitIsMarked(int rowNum, int lineNum) {
+            gridModel.IsMarked.Value = new bool[rowNum, lineNum];
+        }
+
+        public void SweepMine(int row, int line) {
             var gridsToBeShowed = new List<Tuple<int, int>>();
-            Sweep(e.Row, e.Line, gridModel.RowNum, gridModel.LineNum, gridsToBeShowed);
+            Sweep(row, line, gridModel.RowNum, gridModel.LineNum, gridsToBeShowed);
             this.SendEvent(new ShowMineOrNumEvent {gridsToBeShowed = gridsToBeShowed});
         }
 
         private void Sweep(int r, int l, int rowNum, int lineNum, List<Tuple<int, int>> gridsToBeShowed) {
+            if (gridModel.IsMarked.Value[r, l]) return;
             if (gridModel.IsShowed.Value[r, l]) return;
             gridModel.IsShowed.Value[r, l] = true;
 
@@ -99,6 +106,34 @@ namespace MineSweeper {
                     }
                 }
             }
+        }
+
+        public void CheckWin() {
+            var isMine = gridModel.IsMine.Value;
+            var isShowed = gridModel.IsShowed.Value;
+            var lineNum = gridModel.LineNum.Value;
+            var rowNum = gridModel.RowNum.Value;
+
+            //判断有没有雷踩到了
+            for (var r = 0; r < rowNum; r++)
+            for (var l = 0; l < lineNum; l++)
+                if (isMine[r, l] && isShowed[r, l])
+                    this.SendEvent(new GameOverEvent(false, timeSystem.GetSecond()));
+
+
+            //判断有没有赢,把所有雷都找到了
+            for (var r = 0; r < rowNum; r++)
+            for (var l = 0; l < lineNum; l++)
+                if (!isMine[r, l] && !isShowed[r, l])
+                    return;
+
+            this.SendEvent(new GameOverEvent(true, timeSystem.GetSecond()));
+        }
+
+        public void MarkMineCommand(int row, int line) {
+            gridModel.IsMarked.Value[row, line] = !gridModel.IsMarked.Value[row, line];
+            if (!gridModel.IsShowed.Value[row, line])
+                this.SendEvent(new MarkGridEvent(row, line, gridModel.IsMarked.Value[row, line]));
         }
     }
 }
