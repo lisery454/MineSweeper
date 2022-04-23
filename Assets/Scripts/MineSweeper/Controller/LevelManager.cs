@@ -51,8 +51,6 @@ namespace MineSweeper {
             }
 
             gridRoot.position = -new Vector3(lineNum * gridInterval / 2, rowNum * gridInterval / 2, 0);
-
-            this.SendCommand<InitGridStateCommand>();
         }
 
         private void ShowAssignedGrid(ShowMineOrNumEvent e) {

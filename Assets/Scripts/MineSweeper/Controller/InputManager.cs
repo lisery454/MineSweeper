@@ -1,12 +1,14 @@
 ﻿using QFramework;
 using UnityEngine;
-using Debug = System.Diagnostics.Debug;
 
 namespace MineSweeper {
     public class InputManager : AbstractController {
         private bool IsCheckInput;
-        private bool IsLeftMouseDown;
-        private bool IsRightMouseDown;
+        private bool IsLeftMouse;
+        private bool IsRightMouse;
+
+        private bool IsLeftMouseUp;
+        private bool IsRightMouseUp;
 
         private void Start() {
             this.RegisterEvent<GameStartEvent>(e => { IsCheckInput = true; })
@@ -18,20 +20,31 @@ namespace MineSweeper {
         private void Update() {
             if (!IsCheckInput) return;
 
-            IsLeftMouseDown = Input.GetMouseButton(0);
-            IsRightMouseDown = Input.GetMouseButton(1);
+            IsLeftMouse = Input.GetMouseButton(0);
+            IsRightMouse = Input.GetMouseButton(1);
+            IsLeftMouseUp = Input.GetMouseButtonUp(0);
+            IsRightMouseUp = Input.GetMouseButtonUp(1);
 
-            if (Input.GetMouseButtonUp(0) && !IsRightMouseDown) {
+            if (IsLeftMouseUp && !IsRightMouse) {
                 var hitGrid = GetHitOnGrid();
                 if (hitGrid != null) {
                     this.SendCommand(new SweepMineCommand(hitGrid.Row, hitGrid.Line));
                 }
             }
 
-            if (Input.GetMouseButtonUp(1) && !IsLeftMouseDown) {
+            if (IsRightMouseUp && !IsLeftMouse) {
                 var hitGrid = GetHitOnGrid();
                 if (hitGrid != null) {
                     this.SendCommand(new MarkMineCommand(hitGrid.Row, hitGrid.Line));
+                }
+            }
+
+            if (IsLeftMouseUp && IsRightMouseUp ||
+                IsLeftMouseUp && IsRightMouse ||
+                IsRightMouseUp && IsLeftMouse) {
+                var hitGrid = GetHitOnGrid();
+                if (hitGrid != null) {
+                    this.SendCommand(new DetectMineCommand(hitGrid.Row, hitGrid.Line));
                 }
             }
         }
