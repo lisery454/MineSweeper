@@ -49,7 +49,7 @@ namespace MineSweeper {
 
 
             //设置值
-            for (int i = 0, j = 0; i < mineNum; i++, j++) {
+            for (int i = 0, j = 0; i < mineNum; i++) {
                 int r, l;
                 do {
                     var index = randomMineSelecter[j];
