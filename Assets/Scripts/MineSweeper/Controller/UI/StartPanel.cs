@@ -11,6 +11,8 @@ namespace MineSweeper {
             transform.Find("StartBtn").GetComponent<Button>().onClick.AddListener(() => {
                 settingPanelTransform.gameObject.SetActive(true);
             });
+
+            transform.Find("QuitBtn").GetComponent<Button>().onClick.AddListener(() => { Application.Quit(0); });
         }
     }
 }

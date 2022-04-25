@@ -11,7 +11,7 @@ namespace MineSweeper {
             gridModel = this.GetModel<GridModel>();
             gridInterval = gridModel.GridInterval;
             resolutionAdjustInterval = gridModel.ResolutionAdjustInterval;
-
+            
             AdjustResolution();
         }
 

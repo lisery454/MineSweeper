@@ -1,9 +1,12 @@
 using QFramework;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace MineSweeper {
     public class EndUI : AbstractController {
+        private static readonly int IsGameOver = Animator.StringToHash("IsGameOver");
+
         private void Start() {
             this.RegisterEvent<GameOverEvent>(OnGameOver).UnRegisterWhenGameObjectDestroyed(gameObject);
 
@@ -18,6 +21,8 @@ namespace MineSweeper {
             transform.Find("GameOverPanel/TitleText").GetComponent<Text>().text = e.IsWin ? "You Win!" : "You Lose!";
 
             transform.Find("GameOverPanel/TimeText").GetComponent<Text>().text = "use time: " + e.UseSeconds + "s";
+
+            GetComponent<Animator>().SetBool(IsGameOver, true);
         }
     }
 }

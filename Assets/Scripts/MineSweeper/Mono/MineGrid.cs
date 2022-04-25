@@ -8,21 +8,27 @@ namespace MineSweeper {
         private GameObject markObj;
         private GameObject numObj;
         private GameObject mineObj;
-        public GameObject backObj;
+        private GameObject backObj;
+        private GameObject highLightObj;
+
+        private GameObject frontRoot;
+
 
         private void Start() {
-            markObj = transform.Find("Mark").gameObject;
+            frontRoot = transform.Find("FrontRoot").gameObject;
+
+            markObj = frontRoot.transform.Find("Mark").gameObject;
+            highLightObj = frontRoot.transform.Find("HighLight").gameObject;
+
             numObj = transform.Find("Num").gameObject;
             mineObj = transform.Find("Mine").gameObject;
             backObj = transform.Find("Back").gameObject;
         }
 
         public void ShowNum(int num) {
-            markObj.SetActive(false);
+            ShowBack();
             numObj.SetActive(true);
-            backObj.SetActive(true);
             var textMesh = numObj.transform.Find("Mesh").GetComponent<TextMesh>();
-
             textMesh.text = num != 0 ? num.ToString() : "";
         }
 
@@ -31,9 +37,28 @@ namespace MineSweeper {
         }
 
         public void ShowMine() {
-            markObj.SetActive(false);
+            ShowBack();
             mineObj.SetActive(true);
+        }
+
+        public void ShowBack() {
             backObj.SetActive(true);
+            frontRoot.SetActive(false);
+        }
+
+        public void NotShowBack() {
+            backObj.SetActive(false);
+            frontRoot.SetActive(true);
+        }
+
+        public void ShowHighLight() {
+            if (highLightObj != null)
+                highLightObj.SetActive(true);
+        }
+
+        public void NotShowHighLight() {
+            if (highLightObj != null)
+                highLightObj.SetActive(false);
         }
     }
 }

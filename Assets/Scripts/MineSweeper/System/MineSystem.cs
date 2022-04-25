@@ -27,8 +27,6 @@ namespace MineSweeper {
             var mineNum = gridModel.MineNum.Value;
             InitIsMine(rowNum, lineNum, mineNum, firstR, firstL);
             InitAroundMineNum(rowNum, lineNum);
-            InitIsSweeped(rowNum, lineNum);
-            InitIsMarked(rowNum, lineNum);
         }
 
         private void InitIsMine(int rowNum, int lineNum, int mineNum, int firstR, int firstL) {
@@ -87,14 +85,6 @@ namespace MineSweeper {
                     }
                 }
             }
-        }
-
-        private void InitIsSweeped(int rowNum, int lineNum) {
-            gridModel.IsShowed.Value = new bool[rowNum, lineNum];
-        }
-
-        private void InitIsMarked(int rowNum, int lineNum) {
-            gridModel.IsMarked.Value = new bool[rowNum, lineNum];
         }
 
         public void SweepMine(int row, int line) {
@@ -190,6 +180,53 @@ namespace MineSweeper {
                                 if (!isMarked[nr, nl] && !isShowed[nr, nl])
                                     SweepMine(nr, nl);
                         }
+                    }
+                }
+            }
+        }
+
+        public void HighLightGrid(int r, int l) {
+            if (!gridModel.IsShowed.Value[r, l])
+                this.SendEvent(new HighLightGridEvent(r, l));
+        }
+
+        public void NotHighLightGrid(int r, int l) {
+            this.SendEvent(new NotHighLightGridEvent(r, l));
+        }
+
+        public void DownGrid(int r, int l) {
+            if (!gridModel.IsShowed.Value[r, l] && !gridModel.IsMarked.Value[r, l])
+                this.SendEvent(new DownGridEvent(r, l));
+        }
+
+        public void UpGrid(int r, int l) {
+            if (!gridModel.IsShowed.Value[r, l] && !gridModel.IsMarked.Value[r, l])
+                this.SendEvent(new UpGridEvent(r, l));
+        }
+
+        public void DownAroundGrids(int r, int l) {
+            var lineNum = gridModel.LineNum.Value;
+            var rowNum = gridModel.RowNum.Value;
+            for (var dr = -1; dr <= 1; dr++) {
+                for (var dl = -1; dl <= 1; dl++) {
+                    var nr = r + dr;
+                    var nl = l + dl;
+                    if (nr >= 0 && nr < rowNum && nl >= 0 && nl < lineNum) {
+                        DownGrid(nr, nl);
+                    }
+                }
+            }
+        }
+
+        public void UpAroundGrids(int r, int l) {
+            var lineNum = gridModel.LineNum.Value;
+            var rowNum = gridModel.RowNum.Value;
+            for (var dr = -1; dr <= 1; dr++) {
+                for (var dl = -1; dl <= 1; dl++) {
+                    var nr = r + dr;
+                    var nl = l + dl;
+                    if (nr >= 0 && nr < rowNum && nl >= 0 && nl < lineNum) {
+                        UpGrid(nr, nl);
                     }
                 }
             }
