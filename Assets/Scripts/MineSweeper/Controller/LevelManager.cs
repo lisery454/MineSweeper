@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MineSweeper.Theme;
 using QFramework;
 using UnityEngine;
 
@@ -13,6 +14,19 @@ namespace MineSweeper {
         private float gridInterval;
 
         private void Start() {
+            //设置主题
+            var theme = ThemeManager.Instance.GetTheme();
+            transform.Find("BG").GetComponent<SpriteRenderer>().color = theme.BGColor;
+
+            mineGridPrefab.transform.Find("FrontRoot/HighLight").GetComponent<SpriteRenderer>().sprite =
+                theme.GridHighLightSprite;
+            mineGridPrefab.transform.Find("FrontRoot/Mark").GetComponent<SpriteRenderer>().sprite = theme.MarkSprite;
+            mineGridPrefab.transform.Find("Mine").GetComponent<SpriteRenderer>().sprite = theme.MineSprite;
+            mineGridPrefab.transform.GetComponent<SpriteRenderer>().sprite = theme.GridSprite;
+            mineGridPrefab.transform.Find("Back").GetComponent<SpriteRenderer>().sprite = theme.GridBackSprite;
+            mineGridPrefab.transform.Find("Num/Mesh").GetComponent<TextMesh>().color = theme.GridNumColor;
+
+
             gridModel = this.GetModel<GridModel>();
             gridInterval = gridModel.GridInterval;
             this.RegisterEvent<GameStartEvent>(e => {

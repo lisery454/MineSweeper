@@ -2,9 +2,9 @@
 
 namespace MineSweeper {
     public class GridModel : AbstractModel {
-        public readonly BindableProperty<int> MineNum = new();
-        public readonly BindableProperty<int> RowNum = new();
-        public readonly BindableProperty<int> LineNum = new();
+        public readonly BindableProperty<int> MineNum = new() {Value = 10};
+        public readonly BindableProperty<int> RowNum = new() {Value = 9};
+        public readonly BindableProperty<int> LineNum = new() {Value = 9};
 
         public readonly BindableProperty<bool[,]> IsMine = new();
         public readonly BindableProperty<int[,]> AroundMineNum = new();

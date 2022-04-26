@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dde6f9b40b844d47a2d70cef76f86c6, type: 3}
+  m_Name: ThemeSea
+  m_EditorClassIdentifier: 
+  ThemeName: ThemeSea
+  TitleFontColor: {r: 0.2627451, g: 0.7411765, b: 0.9058824, a: 1}
+  ButtonFontColor: {r: 0.26666668, g: 0.5921569, b: 0.7058824, a: 1}
+  ButtonSprite: {fileID: 447852242, guid: f64dd5ad02a6eed40b32401d670fc1d2, type: 3}
+  ButtonPressedSprite: {fileID: -620715024, guid: f64dd5ad02a6eed40b32401d670fc1d2, type: 3}
+  BGColor: {r: 0.63529414, g: 0.8235295, b: 0.89019614, a: 1}
+  TipColor: {r: 0.2627451, g: 0.42352945, b: 0.9058824, a: 1}
+  InputFieldSprite: {fileID: -620715024, guid: f64dd5ad02a6eed40b32401d670fc1d2, type: 3}
+  InputFieldFontColor: {r: 0.63529414, g: 0.8235295, b: 0.89019614, a: 1}
+  GridSprite: {fileID: 2123606310, guid: c1bf0bea864e63a48a8b328d6e9d7450, type: 3}
+  GridBackSprite: {fileID: -272485562, guid: c1bf0bea864e63a48a8b328d6e9d7450, type: 3}
+  GridHighLightSprite: {fileID: 1475665223, guid: c1bf0bea864e63a48a8b328d6e9d7450, type: 3}
+  MineSprite: {fileID: -1410334487, guid: c1bf0bea864e63a48a8b328d6e9d7450, type: 3}
+  MarkSprite: {fileID: -1133016322, guid: c1bf0bea864e63a48a8b328d6e9d7450, type: 3}
+  EndUIBGSprite: {fileID: -341870418, guid: f64dd5ad02a6eed40b32401d670fc1d2, type: 3}
+  EndUITitleColor: {r: 0.26666668, g: 0.5921569, b: 0.7058824, a: 1}
+  GridNumColor: {r: 0.09411766, g: 0.29803923, b: 0.36862746, a: 1}
+  CaretColor: {r: 0.26666668, g: 0.5921569, b: 0.7058824, a: 1}
+  SelectionColor: {r: 0.26666668, g: 0.5921569, b: 0.7058824, a: 1}
