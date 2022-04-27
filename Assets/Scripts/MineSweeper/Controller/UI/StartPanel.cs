@@ -1,6 +1,6 @@
+using DG.Tweening;
 using MineSweeper.Theme;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace MineSweeper {
@@ -14,12 +14,16 @@ namespace MineSweeper {
             //设置侦听器
             settingPanelTransform = transform.parent.Find("SettingPanel");
 
+            RatioAdjuster.Instance.OnHeightOrWidthChanged += SetLocationWhenScreenChange;
+
             transform.Find("StartBtn").GetComponent<Button>().onClick.AddListener(() => {
-                SceneManager.LoadScene("MainGame");
+                //SceneManager.LoadScene("MainGame");
+                SceneLoader.Instance.LoadScene("MainGame");
             });
 
             transform.Find("SettingBtn").GetComponent<Button>().onClick.AddListener(() => {
-                settingPanelTransform.gameObject.SetActive(true);
+                settingPanelTransform.DOMove(new Vector3(Screen.width / 2f, Screen.height / 2f), 1f);
+                transform.DOMove(new Vector3(-Screen.width / 2f, Screen.height / 2f), 1f);
             });
 
             transform.Find("QuitBtn").GetComponent<Button>().onClick.AddListener(() => { Application.Quit(0); });
@@ -49,6 +53,15 @@ namespace MineSweeper {
             spriteState = transform.Find("QuitBtn").GetComponent<Button>().spriteState;
             spriteState.pressedSprite = theme.ButtonPressedSprite;
             transform.Find("QuitBtn").GetComponent<Button>().spriteState = spriteState;
+        }
+
+        private void SetLocationWhenScreenChange() {
+            transform.position = new Vector3(Screen.width / 2f, Screen.height / 2f);
+        }
+
+        private void OnDestroy() {
+            transform.DOKill();
+            RatioAdjuster.Instance.OnHeightOrWidthChanged -= SetLocationWhenScreenChange;
         }
     }
 }

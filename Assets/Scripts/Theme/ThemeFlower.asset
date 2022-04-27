@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dde6f9b40b844d47a2d70cef76f86c6, type: 3}
   m_Name: ThemeFlower
   m_EditorClassIdentifier: 
-  ThemeName: ThemeFlower
+  ThemeName: Flower
   TitleFontColor: {r: 0.35250238, g: 0.7169812, b: 0.16008064, a: 1}
   ButtonFontColor: {r: 0.2751254, g: 0.6226415, b: 0.09202558, a: 1}
   ButtonSprite: {fileID: 447852242, guid: 0ae241a775da4d9459e032421d3cae4a, type: 3}

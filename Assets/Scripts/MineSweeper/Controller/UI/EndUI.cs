@@ -1,15 +1,55 @@
 using MineSweeper.Theme;
 using QFramework;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace MineSweeper {
     public class EndUI : AbstractController {
         private static readonly int IsGameOver = Animator.StringToHash("IsGameOver");
+        private Text TimeText;
+        private TimeSystem TimeSystem;
+        private const float timeRefreshInterval = 0.5f;
+        private float t;
+        private bool IsRefreshTime = true;
 
         private void Start() {
             //设置主题
+            SetTheme();
+
+            TimeText = transform.Find("TimeText").GetComponent<Text>();
+            TimeSystem = this.GetSystem<TimeSystem>();
+
+            this.RegisterEvent<GameOverEvent>(OnGameOver).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            transform.Find("GameOverPanel/BackBtn").GetComponent<Button>().onClick.AddListener(() => {
+                //SceneManager.LoadScene("StartUI");
+                SceneLoader.Instance.LoadScene("StartUI");
+            });
+
+            this.RegisterEvent<GameOverEvent>(e => { IsRefreshTime = false; })
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
+        }
+
+        private void Update() {
+            if (IsRefreshTime) {
+                if (t > timeRefreshInterval) {
+                    TimeText.text = $"Time: {TimeSystem.GetSecond()} s";
+                    t %= timeRefreshInterval;
+                }
+
+                t += Time.deltaTime;
+            }
+        }
+
+        private void OnGameOver(GameOverEvent e) {
+            transform.Find("GameOverPanel/TitleText").GetComponent<Text>().text = e.IsWin ? "You Win!" : "You Lose!";
+
+            transform.Find("GameOverPanel/TimeText").GetComponent<Text>().text = "use time: " + e.UseSeconds + "s";
+
+            GetComponent<Animator>().SetBool(IsGameOver, true);
+        }
+
+        private void SetTheme() {
             var theme = ThemeManager.Instance.GetTheme();
 
             transform.Find("GameOverPanel").Find("BG").GetComponent<Image>().sprite = theme.EndUIBGSprite;
@@ -21,23 +61,7 @@ namespace MineSweeper {
             transform.Find("GameOverPanel").Find("BackBtn").GetComponent<Button>().spriteState = spriteState;
             transform.Find("GameOverPanel").Find("BackBtn").Find("Text").GetComponent<Text>().color =
                 theme.ButtonFontColor;
-            
-            
-            this.RegisterEvent<GameOverEvent>(OnGameOver).UnRegisterWhenGameObjectDestroyed(gameObject);
-
-            transform.Find("GameOverPanel/BackBtn").GetComponent<Button>().onClick.AddListener(() => {
-                SceneManager.LoadScene("StartUI");
-            });
-        }
-
-        private void OnGameOver(GameOverEvent e) {
-            transform.Find("GameOverPanel").gameObject.SetActive(true);
-
-            transform.Find("GameOverPanel/TitleText").GetComponent<Text>().text = e.IsWin ? "You Win!" : "You Lose!";
-
-            transform.Find("GameOverPanel/TimeText").GetComponent<Text>().text = "use time: " + e.UseSeconds + "s";
-
-            GetComponent<Animator>().SetBool(IsGameOver, true);
+            transform.Find("TimeText").GetComponent<Text>().color = theme.TitleFontColor;
         }
     }
 }

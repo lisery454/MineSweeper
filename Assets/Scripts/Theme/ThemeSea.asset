@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dde6f9b40b844d47a2d70cef76f86c6, type: 3}
   m_Name: ThemeSea
   m_EditorClassIdentifier: 
-  ThemeName: ThemeSea
+  ThemeName: Sea
   TitleFontColor: {r: 0.2627451, g: 0.7411765, b: 0.9058824, a: 1}
   ButtonFontColor: {r: 0.26666668, g: 0.5921569, b: 0.7058824, a: 1}
   ButtonSprite: {fileID: 447852242, guid: f64dd5ad02a6eed40b32401d670fc1d2, type: 3}

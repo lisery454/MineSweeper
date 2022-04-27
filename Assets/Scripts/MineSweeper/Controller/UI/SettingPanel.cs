@@ -1,5 +1,7 @@
+using DG.Tweening;
 using MineSweeper.Theme;
 using QFramework;
+using UnityEngine;
 using UnityEngine.UI;
 
 
@@ -11,14 +13,19 @@ namespace MineSweeper {
 
         private GridModel gridModel;
 
+        private Transform startPanelTransform;
+
         private void Start() {
             //设置主题
             SetTheme();
+
+            RatioAdjuster.Instance.OnHeightOrWidthChanged += SetLocationWhenScreenChange;
 
             gridModel = this.GetModel<GridModel>();
             RowInput = transform.Find("RowInput").GetComponent<InputField>();
             LineInput = transform.Find("LineInput").GetComponent<InputField>();
             MineInput = transform.Find("MineInput").GetComponent<InputField>();
+            startPanelTransform = transform.parent.Find("StartPanel");
             transform.Find("SetRLMBtn").GetComponent<Button>().onClick.AddListener(() => {
                 if (TestIfInputOK(RowInput.text, LineInput.text, MineInput.text)) {
                     gridModel.MineNum.Value = int.Parse(MineInput.text);
@@ -29,21 +36,22 @@ namespace MineSweeper {
             });
 
             transform.Find("BackBtn").GetComponent<Button>().onClick.AddListener(() => {
-                gameObject.SetActive(false);
+                startPanelTransform.DOMove(new Vector3(Screen.width / 2f, Screen.height / 2f), 1f);
+                transform.DOMove(new Vector3(Screen.width * 3 / 2f, Screen.height / 2f), 1f);
             });
 
             transform.Find("ThemeTitle/ThemeSeaBtn").GetComponent<Button>().onClick.AddListener(() => {
-                ThemeManager.Instance.SetTheme("ThemeSea");
+                ThemeManager.Instance.SetTheme("Sea");
                 SetTheme();
                 transform.parent.Find("StartPanel").GetComponent<StartPanel>().SetTheme();
             });
             transform.Find("ThemeTitle/ThemeZenBtn").GetComponent<Button>().onClick.AddListener(() => {
-                ThemeManager.Instance.SetTheme("ThemeZen");
+                ThemeManager.Instance.SetTheme("Zen");
                 SetTheme();
                 transform.parent.Find("StartPanel").GetComponent<StartPanel>().SetTheme();
             });
             transform.Find("ThemeTitle/ThemeFlowerBtn").GetComponent<Button>().onClick.AddListener(() => {
-                ThemeManager.Instance.SetTheme("ThemeFlower");
+                ThemeManager.Instance.SetTheme("Flower");
                 SetTheme();
                 transform.parent.Find("StartPanel").GetComponent<StartPanel>().SetTheme();
             });
@@ -67,7 +75,7 @@ namespace MineSweeper {
             transform.Find("LineInput").GetComponent<Image>().sprite = theme.InputFieldSprite;
             transform.Find("LineInput").GetComponent<InputField>().caretColor = theme.CaretColor;
             transform.Find("LineInput").GetComponent<InputField>().selectionColor = theme.SelectionColor;
-            transform.Find("LineInput").Find("Text").GetComponent<Text>().color = theme.BGColor;
+            transform.Find("LineInput").Find("Text").GetComponent<Text>().color = theme.InputFieldFontColor;
 
             transform.Find("MineInput").Find("Title").GetComponent<Text>().color = theme.TitleFontColor;
             transform.Find("MineInput").GetComponent<Image>().sprite = theme.InputFieldSprite;
@@ -125,6 +133,16 @@ namespace MineSweeper {
             }
 
             return false;
+        }
+
+        private void SetLocationWhenScreenChange() {
+            transform.position = new Vector3(Screen.width * 3 / 2f, Screen.height / 2f);
+        }
+
+        private void OnDestroy() {
+            transform.DOKill();
+
+            RatioAdjuster.Instance.OnHeightOrWidthChanged -= SetLocationWhenScreenChange;
         }
     }
 }

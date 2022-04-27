@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dde6f9b40b844d47a2d70cef76f86c6, type: 3}
   m_Name: ThemeZen
   m_EditorClassIdentifier: 
-  ThemeName: ThemeZen
+  ThemeName: Zen
   TitleFontColor: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 1}
   ButtonFontColor: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
   ButtonSprite: {fileID: 697473188, guid: aed7d3dbacd37a94bb1000c9b3a5d1eb, type: 3}
@@ -20,7 +20,7 @@ MonoBehaviour:
   BGColor: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
   TipColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
   InputFieldSprite: {fileID: -293385386, guid: aed7d3dbacd37a94bb1000c9b3a5d1eb, type: 3}
-  InputFieldFontColor: {r: 0.6901961, g: 0.6901961, b: 0.6901961, a: 1}
+  InputFieldFontColor: {r: 0.14117648, g: 0.14117648, b: 0.14117648, a: 1}
   GridSprite: {fileID: -1816859926, guid: 64b95cf28e4054b4b9ca2e4f2d87b0d7, type: 3}
   GridBackSprite: {fileID: 455615441, guid: 64b95cf28e4054b4b9ca2e4f2d87b0d7, type: 3}
   GridHighLightSprite: {fileID: 1986149346, guid: 64b95cf28e4054b4b9ca2e4f2d87b0d7, type: 3}
