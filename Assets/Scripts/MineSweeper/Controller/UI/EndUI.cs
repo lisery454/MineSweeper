@@ -22,8 +22,8 @@ namespace MineSweeper {
             this.RegisterEvent<GameOverEvent>(OnGameOver).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             transform.Find("GameOverPanel/BackBtn").GetComponent<Button>().onClick.AddListener(() => {
-                //SceneManager.LoadScene("StartUI");
                 SceneLoader.Instance.LoadScene("StartUI");
+                AudioManager.Instance.PlayAudio("a1");
             });
 
             this.RegisterEvent<GameOverEvent>(e => { IsRefreshTime = false; })
@@ -42,6 +42,8 @@ namespace MineSweeper {
         }
 
         private void OnGameOver(GameOverEvent e) {
+            AudioManager.Instance.PlayAudio(e.IsWin ? "a6" : "a5");
+
             transform.Find("GameOverPanel/TitleText").GetComponent<Text>().text = e.IsWin ? "You Win!" : "You Lose!";
 
             transform.Find("GameOverPanel/TimeText").GetComponent<Text>().text = "use time: " + e.UseSeconds + "s";

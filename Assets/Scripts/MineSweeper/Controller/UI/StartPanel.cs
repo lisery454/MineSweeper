@@ -19,14 +19,19 @@ namespace MineSweeper {
             transform.Find("StartBtn").GetComponent<Button>().onClick.AddListener(() => {
                 //SceneManager.LoadScene("MainGame");
                 SceneLoader.Instance.LoadScene("MainGame");
+                AudioManager.Instance.PlayAudio("a1");
             });
 
             transform.Find("SettingBtn").GetComponent<Button>().onClick.AddListener(() => {
                 settingPanelTransform.DOMove(new Vector3(Screen.width / 2f, Screen.height / 2f), 1f);
                 transform.DOMove(new Vector3(-Screen.width / 2f, Screen.height / 2f), 1f);
+                AudioManager.Instance.PlayAudio("a1");
             });
 
-            transform.Find("QuitBtn").GetComponent<Button>().onClick.AddListener(() => { Application.Quit(0); });
+            transform.Find("QuitBtn").GetComponent<Button>().onClick.AddListener(() => {
+                AudioManager.Instance.PlayAudio("a1");
+                Application.Quit(0);
+            });
         }
 
         public void SetTheme() {

@@ -44,13 +44,18 @@ namespace MineSweeper {
                 }
 
                 currentInputState = currentInputState.OnLeftMouseDown();
+
+                AudioManager.Instance.PlayAudio("a7");
             }
 
             if (Input.GetMouseButtonDown(1)) {
                 switch (currentInputState) {
                     case NormalInputState: {
                         hitGrid = GetGridOnMouse();
-                        if (hitGrid != null) this.SendCommand(new MarkMineCommand(hitGrid.Row, hitGrid.Line));
+                        if (hitGrid != null) {
+                            this.SendCommand(new MarkMineCommand(hitGrid.Row, hitGrid.Line));
+                        }
+
                         break;
                     }
                     case LeftMouseInputState: {

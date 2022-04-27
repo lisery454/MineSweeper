@@ -32,28 +32,36 @@ namespace MineSweeper {
                     gridModel.LineNum.Value = int.Parse(LineInput.text);
                     gridModel.RowNum.Value = int.Parse(RowInput.text);
                     transform.Find("Tip").GetComponent<Text>().text = "<!>Set Successfully<!>";
+                    AudioManager.Instance.PlayAudio("a3");
+                }
+                else {
+                    AudioManager.Instance.PlayAudio("a2");
                 }
             });
 
             transform.Find("BackBtn").GetComponent<Button>().onClick.AddListener(() => {
                 startPanelTransform.DOMove(new Vector3(Screen.width / 2f, Screen.height / 2f), 1f);
                 transform.DOMove(new Vector3(Screen.width * 3 / 2f, Screen.height / 2f), 1f);
+                AudioManager.Instance.PlayAudio("a1");
             });
 
             transform.Find("ThemeTitle/ThemeSeaBtn").GetComponent<Button>().onClick.AddListener(() => {
                 ThemeManager.Instance.SetTheme("Sea");
                 SetTheme();
                 transform.parent.Find("StartPanel").GetComponent<StartPanel>().SetTheme();
+                AudioManager.Instance.PlayAudio("a3");
             });
             transform.Find("ThemeTitle/ThemeZenBtn").GetComponent<Button>().onClick.AddListener(() => {
                 ThemeManager.Instance.SetTheme("Zen");
                 SetTheme();
                 transform.parent.Find("StartPanel").GetComponent<StartPanel>().SetTheme();
+                AudioManager.Instance.PlayAudio("a3");
             });
             transform.Find("ThemeTitle/ThemeFlowerBtn").GetComponent<Button>().onClick.AddListener(() => {
                 ThemeManager.Instance.SetTheme("Flower");
                 SetTheme();
                 transform.parent.Find("StartPanel").GetComponent<StartPanel>().SetTheme();
+                AudioManager.Instance.PlayAudio("a3");
             });
         }
 
