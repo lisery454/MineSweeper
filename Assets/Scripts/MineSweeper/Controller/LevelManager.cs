@@ -5,7 +5,7 @@ using MineSweeper.Theme;
 using QFramework;
 using UnityEngine;
 
-namespace MineSweeper.Normal {
+namespace MineSweeper {
     public class LevelManager : AbstractController {
         [SerializeField] private MineGrid mineGridPrefab;
         private List<List<MineGrid>> grids;

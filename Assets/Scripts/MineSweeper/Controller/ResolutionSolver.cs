@@ -1,7 +1,7 @@
 ﻿using QFramework;
 using UnityEngine;
 
-namespace MineSweeper.Normal {
+namespace MineSweeper {
     public class ResolutionSolver : AbstractController {
         private GridModel gridModel;
         private float gridInterval;

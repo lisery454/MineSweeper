@@ -1,6 +1,6 @@
 ﻿using QFramework;
 
-namespace MineSweeper.Normal {
+namespace MineSweeper {
     public class GameStartCommand : AbstractCommand {
         protected override void OnExecute() {
             this.SendEvent(new GameStartEvent(LineNum, RowNum, MineNum));

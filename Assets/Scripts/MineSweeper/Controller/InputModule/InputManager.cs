@@ -3,7 +3,7 @@ using System.Linq;
 using QFramework;
 using UnityEngine;
 
-namespace MineSweeper.Normal {
+namespace MineSweeper {
     public class InputManager : AbstractController {
         private bool IsCheckInput;
 

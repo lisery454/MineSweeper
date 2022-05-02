@@ -1,6 +1,6 @@
 ﻿using QFramework;
 
-namespace MineSweeper.Normal {
+namespace MineSweeper {
     public class CheckWinCommand : AbstractCommand{
         protected override void OnExecute() {
             this.GetSystem<MineSystem>().CheckWin();

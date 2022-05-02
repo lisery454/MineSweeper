@@ -1,4 +1,4 @@
-﻿namespace MineSweeper.Normal {
+﻿namespace MineSweeper {
     public class GameStartEvent {
         public int LineNum, RowNum;
         public int MineNum;

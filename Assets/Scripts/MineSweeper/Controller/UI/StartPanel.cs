@@ -3,7 +3,7 @@ using MineSweeper.Theme;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MineSweeper.Normal {
+namespace MineSweeper {
     public class StartPanel : AbstractController {
         private Transform settingPanelTransform;
 

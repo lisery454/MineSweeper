@@ -4,7 +4,7 @@ using QFramework;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace MineSweeper.Normal {
+namespace MineSweeper {
     public class MineSystem : AbstractSystem {
         private GridModel gridModel;
         private TimeSystem timeSystem;

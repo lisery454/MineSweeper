@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace MineSweeper.Normal {
+namespace MineSweeper {
     public class SettingPanel : AbstractController {
         private InputField RowInput;
         private InputField LineInput;

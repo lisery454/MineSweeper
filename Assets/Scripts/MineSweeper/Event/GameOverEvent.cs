@@ -1,4 +1,4 @@
-﻿namespace MineSweeper.Normal {
+﻿namespace MineSweeper {
     public class GameOverEvent {
         public bool IsWin { get; set; }
         public int UseSeconds { get; set; }

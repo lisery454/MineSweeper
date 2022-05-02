@@ -1,6 +1,6 @@
 ﻿using QFramework;
 
-namespace MineSweeper.Normal {
+namespace MineSweeper {
     public class GridModel : AbstractModel {
         public readonly BindableProperty<int> MineNum = new() {Value = 10};
         public readonly BindableProperty<int> RowNum = new() {Value = 9};

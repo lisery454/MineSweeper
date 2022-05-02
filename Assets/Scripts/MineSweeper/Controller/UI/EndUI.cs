@@ -3,7 +3,7 @@ using QFramework;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MineSweeper.Normal {
+namespace MineSweeper {
     public class EndUI : AbstractController {
         private static readonly int IsGameOver = Animator.StringToHash("IsGameOver");
         private Text TimeText;

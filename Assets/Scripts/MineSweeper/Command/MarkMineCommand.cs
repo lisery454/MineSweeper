@@ -1,6 +1,6 @@
 ﻿using QFramework;
 
-namespace MineSweeper.Normal {
+namespace MineSweeper {
     public class MarkMineCommand : AbstractCommand {
         private int Row { get; }
 
