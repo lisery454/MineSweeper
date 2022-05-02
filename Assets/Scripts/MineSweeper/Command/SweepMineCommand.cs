@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using QFramework;
 
-namespace MineSweeper {
+namespace MineSweeper.Normal {
     public class SweepMineCommand : AbstractCommand {
         private int Row { get; }
 

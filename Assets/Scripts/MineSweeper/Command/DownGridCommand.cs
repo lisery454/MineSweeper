@@ -1,6 +1,6 @@
 ﻿using QFramework;
 
-namespace MineSweeper {
+namespace MineSweeper.Normal {
     public class DownGridCommand : AbstractCommand {
         private int Row { get; }
         private int Line { get; }

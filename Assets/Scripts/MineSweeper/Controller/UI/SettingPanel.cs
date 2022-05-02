@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace MineSweeper {
+namespace MineSweeper.Normal {
     public class SettingPanel : AbstractController {
         private InputField RowInput;
         private InputField LineInput;
@@ -40,8 +40,8 @@ namespace MineSweeper {
             });
 
             transform.Find("BackBtn").GetComponent<Button>().onClick.AddListener(() => {
-                startPanelTransform.DOMove(new Vector3(Screen.width / 2f, Screen.height / 2f), 1f);
-                transform.DOMove(new Vector3(Screen.width * 3 / 2f, Screen.height / 2f), 1f);
+                startPanelTransform.DOMove(new Vector3(Screen.width / 2f, Screen.height / 2f), 0.5f);
+                transform.DOMove(new Vector3(Screen.width * 3 / 2f, Screen.height / 2f), 0.5f);
                 AudioManager.Instance.PlayAudio("a1");
             });
 
@@ -73,23 +73,26 @@ namespace MineSweeper {
             transform.Find("Title").GetComponent<Text>().color = theme.TitleFontColor;
             transform.Find("ThemeTitle").GetComponent<Text>().color = theme.TitleFontColor;
 
-            transform.Find("RowInput").Find("Title").GetComponent<Text>().color = theme.TitleFontColor;
-            transform.Find("RowInput").GetComponent<Image>().sprite = theme.InputFieldSprite;
-            transform.Find("RowInput").GetComponent<InputField>().caretColor = theme.CaretColor;
-            transform.Find("RowInput").GetComponent<InputField>().selectionColor = theme.SelectionColor;
-            transform.Find("RowInput").Find("Text").GetComponent<Text>().color = theme.InputFieldFontColor;
+            var rowInput = transform.Find("RowInput");
+            rowInput.Find("Title").GetComponent<Text>().color = theme.TitleFontColor;
+            rowInput.GetComponent<Image>().sprite = theme.InputFieldSprite;
+            rowInput.GetComponent<InputField>().caretColor = theme.CaretColor;
+            rowInput.GetComponent<InputField>().selectionColor = theme.SelectionColor;
+            rowInput.Find("Text").GetComponent<Text>().color = theme.InputFieldFontColor;
 
-            transform.Find("LineInput").Find("Title").GetComponent<Text>().color = theme.TitleFontColor;
-            transform.Find("LineInput").GetComponent<Image>().sprite = theme.InputFieldSprite;
-            transform.Find("LineInput").GetComponent<InputField>().caretColor = theme.CaretColor;
-            transform.Find("LineInput").GetComponent<InputField>().selectionColor = theme.SelectionColor;
-            transform.Find("LineInput").Find("Text").GetComponent<Text>().color = theme.InputFieldFontColor;
+            var lineInput = transform.Find("LineInput");
+            lineInput.Find("Title").GetComponent<Text>().color = theme.TitleFontColor;
+            lineInput.GetComponent<Image>().sprite = theme.InputFieldSprite;
+            lineInput.GetComponent<InputField>().caretColor = theme.CaretColor;
+            lineInput.GetComponent<InputField>().selectionColor = theme.SelectionColor;
+            lineInput.Find("Text").GetComponent<Text>().color = theme.InputFieldFontColor;
 
-            transform.Find("MineInput").Find("Title").GetComponent<Text>().color = theme.TitleFontColor;
-            transform.Find("MineInput").GetComponent<Image>().sprite = theme.InputFieldSprite;
-            transform.Find("MineInput").GetComponent<InputField>().caretColor = theme.CaretColor;
-            transform.Find("MineInput").GetComponent<InputField>().selectionColor = theme.SelectionColor;
-            transform.Find("MineInput").Find("Text").GetComponent<Text>().color = theme.InputFieldFontColor;
+            var mineInput =  transform.Find("MineInput");
+            mineInput.Find("Title").GetComponent<Text>().color = theme.TitleFontColor;
+            mineInput.GetComponent<Image>().sprite = theme.InputFieldSprite;
+            mineInput.GetComponent<InputField>().caretColor = theme.CaretColor;
+            mineInput.GetComponent<InputField>().selectionColor = theme.SelectionColor;
+            mineInput.Find("Text").GetComponent<Text>().color = theme.InputFieldFontColor;
 
             transform.Find("Tip").GetComponent<Text>().color = theme.TipColor;
 
@@ -149,8 +152,8 @@ namespace MineSweeper {
 
         private void OnDestroy() {
             transform.DOKill();
-
-            RatioAdjuster.Instance.OnHeightOrWidthChanged -= SetLocationWhenScreenChange;
+            if (RatioAdjuster.IsExist)
+                RatioAdjuster.Instance.OnHeightOrWidthChanged -= SetLocationWhenScreenChange;
         }
     }
 }

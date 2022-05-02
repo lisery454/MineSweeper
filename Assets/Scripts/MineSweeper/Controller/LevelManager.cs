@@ -5,7 +5,7 @@ using MineSweeper.Theme;
 using QFramework;
 using UnityEngine;
 
-namespace MineSweeper {
+namespace MineSweeper.Normal {
     public class LevelManager : AbstractController {
         [SerializeField] private MineGrid mineGridPrefab;
         private List<List<MineGrid>> grids;
@@ -29,6 +29,7 @@ namespace MineSweeper {
 
             gridModel = this.GetModel<GridModel>();
             gridInterval = gridModel.GridInterval;
+            
             this.RegisterEvent<GameStartEvent>(e => {
                 var rowNum = e.RowNum;
                 var lineNum = e.LineNum;

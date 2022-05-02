@@ -30,6 +30,8 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component {
         }
     }
 
+    public static bool IsExist => instance != null;
+
     #endregion
 
     #region Methods

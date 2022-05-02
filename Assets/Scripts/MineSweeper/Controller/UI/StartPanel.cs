@@ -3,7 +3,7 @@ using MineSweeper.Theme;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MineSweeper {
+namespace MineSweeper.Normal {
     public class StartPanel : AbstractController {
         private Transform settingPanelTransform;
 
@@ -23,8 +23,8 @@ namespace MineSweeper {
             });
 
             transform.Find("SettingBtn").GetComponent<Button>().onClick.AddListener(() => {
-                settingPanelTransform.DOMove(new Vector3(Screen.width / 2f, Screen.height / 2f), 1f);
-                transform.DOMove(new Vector3(-Screen.width / 2f, Screen.height / 2f), 1f);
+                settingPanelTransform.DOMove(new Vector3(Screen.width / 2f, Screen.height / 2f), 0.5f);
+                transform.DOMove(new Vector3(-Screen.width / 2f, Screen.height / 2f), 0.5f);
                 AudioManager.Instance.PlayAudio("a1");
             });
 
@@ -66,7 +66,8 @@ namespace MineSweeper {
 
         private void OnDestroy() {
             transform.DOKill();
-            RatioAdjuster.Instance.OnHeightOrWidthChanged -= SetLocationWhenScreenChange;
+            if (RatioAdjuster.IsExist)
+                RatioAdjuster.Instance.OnHeightOrWidthChanged -= SetLocationWhenScreenChange;
         }
     }
 }

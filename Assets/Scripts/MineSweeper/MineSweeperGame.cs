@@ -1,6 +1,6 @@
 ﻿using QFramework;
 
-namespace MineSweeper {
+namespace MineSweeper.Normal {
     public class MineSweeperGame : Architecture<MineSweeperGame> {
         protected override void Init() {
             RegisterModel(new GridModel());

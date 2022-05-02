@@ -1,4 +1,4 @@
-﻿namespace MineSweeper {
+﻿namespace MineSweeper.Normal {
     public class HighLightGridEvent {
         public int Row { get; }
         public int Line { get; }

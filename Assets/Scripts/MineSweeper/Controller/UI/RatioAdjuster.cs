@@ -1,7 +1,7 @@
 using System;
 using Screen = UnityEngine.Device.Screen;
 
-public class RatioAdjuster : SingletonInOneScene<RatioAdjuster> {
+public class RatioAdjuster : Singleton<RatioAdjuster> {
     private int ScreenHeight;
     private int ScreenWidth;
 

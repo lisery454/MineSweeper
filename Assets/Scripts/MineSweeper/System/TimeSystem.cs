@@ -1,7 +1,7 @@
 ﻿using System;
 using QFramework;
 
-namespace MineSweeper {
+namespace MineSweeper.Normal {
     public class TimeSystem : AbstractSystem {
         protected override void OnInit() {
             this.RegisterEvent<GameStartEvent>(e => { startTime = DateTime.Now; });

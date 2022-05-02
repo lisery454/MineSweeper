@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace MineSweeper {
-    public class AudioManager : SingletonInOneScene<AudioManager> {
+    public class AudioManager : Singleton<AudioManager> {
         [SerializeField] private List<AudioInfo> AudioInfos;
         private AudioSource AudioSource;
 

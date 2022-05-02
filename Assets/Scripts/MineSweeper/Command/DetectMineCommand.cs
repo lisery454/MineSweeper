@@ -1,6 +1,6 @@
 ﻿using QFramework;
 
-namespace MineSweeper {
+namespace MineSweeper.Normal {
     public class DetectMineCommand : AbstractCommand {
         private int Row { get; set; }
         private int Line { get; set; }

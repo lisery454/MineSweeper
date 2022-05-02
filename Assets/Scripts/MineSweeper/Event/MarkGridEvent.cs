@@ -1,4 +1,4 @@
-﻿namespace MineSweeper {
+﻿namespace MineSweeper.Normal {
     public class MarkGridEvent {
         public int Row { get; set; }
         public int Line { get; set; }
