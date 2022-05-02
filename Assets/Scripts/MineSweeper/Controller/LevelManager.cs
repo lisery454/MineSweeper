@@ -29,14 +29,15 @@ namespace MineSweeper {
 
             gridModel = this.GetModel<GridModel>();
             gridInterval = gridModel.GridInterval;
-            
-            this.RegisterEvent<GameStartEvent>(e => {
-                var rowNum = e.RowNum;
-                var lineNum = e.LineNum;
+
+            this.RegisterEvent<GridSizeInitOver>(_ => {
+                var rowNum = gridModel.RowNum.Value;
+                var lineNum = gridModel.LineNum.Value;
                 //清空之前的格子
                 if (grids != null && grids.Count != 0) {
                     foreach (var grid in grids.SelectMany(gridRow => gridRow)) {
-                        Destroy(grid.gameObject);
+                        if (grid != null)
+                            Destroy(grid.gameObject);
                     }
                 }
 
@@ -44,16 +45,38 @@ namespace MineSweeper {
 
                 var gridRoot = transform.Find("Grids");
 
+                var gridSize = gridModel.GridSize.Value;
+                var bindGridLoc = gridModel.BindGridLoc.Value;
+
                 //生成新的格子
                 for (var r = 0; r < rowNum; r++) {
                     grids.Add(new List<MineGrid>());
                     for (var l = 0; l < lineNum; l++) {
-                        var grid = Instantiate(mineGridPrefab, new Vector3(l, r, 0) * gridInterval,
-                            Quaternion.identity);
-                        grid.transform.SetParent(gridRoot, false);
-                        grid.Line = l;
-                        grid.Row = r;
-                        grids[r].Add(grid);
+                        if (gridSize[r][l] == 1) {
+                            var grid = Instantiate(mineGridPrefab, new Vector3(l, r, 0) * gridInterval,
+                                Quaternion.identity);
+                            grid.transform.SetParent(gridRoot, false);
+                            grid.Line = l;
+                            grid.Row = r;
+                            grids[r].Add(grid);
+                        }
+
+                        if (gridSize[r][l] == 2) {
+                            var (nr, nl) = bindGridLoc[r][l];
+                            if (nr == r && nl == l) {
+                                var grid = Instantiate(mineGridPrefab,
+                                    new Vector3(l + 0.5f, r + 0.5f, 0) * gridInterval,
+                                    Quaternion.identity);
+                                grid.transform.SetParent(gridRoot, false);
+                                grid.transform.localScale = Vector3.one * (0.5f + gridInterval);
+                                grid.Line = l;
+                                grid.Row = r;
+                                grids[r].Add(grid);
+                            }
+                            else {
+                                grids[r].Add(grids[nr][nl]);
+                            }
+                        }
                     }
                 }
 
@@ -62,6 +85,7 @@ namespace MineSweeper {
                 gridModel.IsShowed.Value = new bool[rowNum, lineNum];
                 gridModel.IsMarked.Value = new bool[rowNum, lineNum];
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
+            
             this.RegisterEvent<ShowMineOrNumEvent>(e => {
                 foreach (var (r, l) in e.gridsToBeShowed) {
                     if (gridModel.IsMine.Value[r, l]) grids[r][l].ShowMine();

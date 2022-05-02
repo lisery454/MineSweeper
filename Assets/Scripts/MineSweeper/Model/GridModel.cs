@@ -1,4 +1,6 @@
-﻿using QFramework;
+﻿using System;
+using System.Collections.Generic;
+using QFramework;
 
 namespace MineSweeper {
     public class GridModel : AbstractModel {
@@ -10,6 +12,9 @@ namespace MineSweeper {
         public readonly BindableProperty<int[,]> AroundMineNum = new();
         public readonly BindableProperty<bool[,]> IsShowed = new();
         public readonly BindableProperty<bool[,]> IsMarked = new();
+        public readonly BindableProperty<Tuple<int, int>[][]> BindGridLoc = new();
+        public readonly BindableProperty<int[][]> GridSize = new();
+        public readonly BindableProperty<List<Tuple<int, int>>[][]> AroundGrids = new();
 
         public readonly BindableProperty<float> GridInterval = new() {Value = 0.55f};
         public readonly BindableProperty<float> ResolutionAdjustInterval = new() {Value = 1f};
